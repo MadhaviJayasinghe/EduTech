@@ -14,7 +14,7 @@ export default class PageLayout extends React.Component {
         <View style={styles.topContainer}>
           <View style={styles.headingView}>
             <TouchableOpacity>
-              <Icon name="keyboard-backspace" size={40} color="#fff" />
+              <Icon name="keyboard-backspace" size={40} color={colors.white} />
             </TouchableOpacity>
             <Text style={styles.heading}>{this.props.title}</Text>
           </View>

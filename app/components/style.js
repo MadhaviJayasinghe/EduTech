@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 import config from '@config/config'
+import colors from '@res/colors';
 
 export default StyleSheet.create({
     textInput: {
-        borderColor: 'cornflowerblue',
+        borderColor: colors.cornflowerblue,
         borderWidth: 1,
         width: config.deviceWidth * 0.8,
         borderRadius: 5,
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     },
     topContainer: {
         flex: 0.25,
-        backgroundColor: '#041a5e'
+        backgroundColor: colors.primary_blue
     },
     bottomContainer: {
         flex: 0.75
@@ -33,8 +34,8 @@ export default StyleSheet.create({
         marginTop: config.deviceHeight * 0.01
     },
     button: {
-        borderColor: '#041a5e',
-        backgroundColor: '#041a5e',
+        borderColor: colors.primary_blue,
+        backgroundColor: colors.primary_blue,
         borderWidth: 1.5,
         width: config.deviceWidth * 0.7,
         height: config.deviceHeight * 0.07,
@@ -45,7 +46,7 @@ export default StyleSheet.create({
         elevation: 25
     },
     buttonText: {
-        color: '#fff',
+        color: colors.white,
         fontSize: 16
     }
 });
