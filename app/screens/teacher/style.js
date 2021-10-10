@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import config from '@config/config'
+import colors from '@res/colors';
 
 export default StyleSheet.create({
     container: {
@@ -7,61 +8,61 @@ export default StyleSheet.create({
         height: config.deviceHeight,
         width: config.deviceWidth,
         justifyContent: 'center',
-        backgroundColor: '#041a5e'
+        backgroundColor: colors.primary_blue
     },
     middleContainer: {
         height: config.deviceHeight * 0.55,
         marginTop: config.deviceHeight * 0.07,
         width: config.deviceWidth,
-        backgroundColor: '#fff'
+        backgroundColor: colors.white
     },
     bottomContainer: {
         height: config.deviceHeight * 0.2,
         width: config.deviceWidth,
-        backgroundColor: 'red'
+        marginBottom: -50
     },
     row: {
         flex: 1,
         flexDirection: 'row',
         height: config.deviceHeight * 0.2,
         width: config.deviceWidth,
-        backgroundColor: '#041a5e'
+        backgroundColor: colors.primary_blue
     },
     largeButton: {
         flex: 2 / 3,
         height: config.deviceHeight * 0.18,
-        backgroundColor: '#6A00FF',
+        backgroundColor: colors.metro_indigo,
         elevation: 20
     },
     mediumButton: {
         flex: 0.5,
         height: config.deviceHeight * 0.18,
-        backgroundColor: '#F0A30A',
+        backgroundColor: colors.metro_amber,
         elevation: 20
     },
     smallButton: {
         flex: 1 / 3,
         height: config.deviceHeight * 0.18,
-        backgroundColor: '#A4C400',
+        backgroundColor: colors.metro_lime,
         elevation: 20,
         justifyContent: 'center'
     },
     largeButton1: {
         flex: 2 / 3,
         height: config.deviceHeight * 0.18,
-        backgroundColor: '#008A00',
+        backgroundColor: colors.metro_emerald,
         elevation: 20
     },
     mediumButton1: {
         flex: 0.5,
         height: config.deviceHeight * 0.18,
-        backgroundColor: '#1BA1E2',
+        backgroundColor: colors.metro_cyan,
         elevation: 20
     },
     smallButton1: {
         flex: 1 / 3,
         height: config.deviceHeight * 0.18,
-        backgroundColor: '#FA6800',
+        backgroundColor: colors.metro_orange,
         elevation: 20,
         justifyContent: 'center'
     },
@@ -77,7 +78,7 @@ export default StyleSheet.create({
     },
     cardLecture: {
         padding: 10,
-        borderColor: '#041a5e',
+        borderColor: colors.primary_blue,
         borderWidth: 1.5,
         width: config.deviceWidth * 0.9,
         borderRadius: 5,
@@ -96,16 +97,16 @@ export default StyleSheet.create({
     cardTextSmall: {
         fontSize: 15,
         marginTop: config.deviceHeight * 0.015,
-        color: '#041a5e'
+        color: colors.primary_blue
     },
     cardTextLarge: {
         fontSize: 25,
-        color: '#041a5e'
+        color: colors.primary_blue
     },
     cardTextMedium: {
         fontSize: 20,
         marginTop: config.deviceHeight * 0.03,
-        color: '#041a5e'
+        color: colors.primary_blue
     },
     classCard: {
         padding: 10,
@@ -126,14 +127,14 @@ export default StyleSheet.create({
         width: config.deviceWidth * 0.8,
         marginTop: config.deviceHeight * 0.2,
         borderWidth: 1,
-        borderColor: 'cornflowerblue',
+        borderColor: colors.cornflowerblue,
         borderRadius: 5,
         justifyContent: 'center'
     },
     classCardText: {
         fontSize: 20,
         marginTop: config.deviceHeight * 0.01,
-        color: '#041a5e'
+        color: colors.primary_blue
     },
     materialOption: {
         height: config.deviceHeight * 0.3,
@@ -148,12 +149,22 @@ export default StyleSheet.create({
         fontSize: 20,
         marginTop: config.deviceHeight * 0.05,
         marginBottom: config.deviceHeight * 0.01,
-        color: '#041a5e'
+        color: colors.primary_blue
     },
     margin: {
         height: config.deviceHeight * 0.25
     },
     whiteSpace: {
         height: config.deviceHeight * 0.08
-    }
+    },
+    requestCard: {
+        height: config.deviceHeight * 0.1,
+        width: config.deviceWidth * 0.9,
+        marginTop: config.deviceHeight *0.01,
+        borderRadius: 10,
+        justifyContent: 'center',
+        padding: config.deviceWidth*0.03,
+        backgroundColor: 'white',
+        elevation: 10
+    },
 });

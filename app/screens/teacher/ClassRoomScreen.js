@@ -5,6 +5,8 @@ import PageLayout from '@components/PageLayout';
 import DocumentPicker from "react-native-document-picker";
 import firestore from '@react-native-firebase/firestore'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import colors from '@res/colors';
 
 export default function ClassRoomScreen({ navigation }) {
   const [listData, setListData] = useState([]);
@@ -45,12 +47,10 @@ export default function ClassRoomScreen({ navigation }) {
   const ItemView = ({ item }) => {
     return (
       <View style={styles.classCard}>
-        <Icon name="google-classroom" size={80} color="#041a5e" style={{ marginTop: 30 }} />
-        <Text style={styles.cardTextMedium}
-          onPress={() => getItem(item.fullPath, item.name)}
-        >
-          Grade {item._data.grade}
-        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('ViewStudents', item._data.grade)}>
+        <Icon name="google-classroom" size={80} color="colors.primary_blue" style={{ marginTop: 30 }} />
+        <Text style={styles.cardTextMedium}>Grade {item._data.grade}</Text>
+        </TouchableOpacity>
       </View>
     );
   };

@@ -4,6 +4,7 @@ import styles from './style';
 import storage from '@react-native-firebase/storage';
 import RNFetchBlob from 'rn-fetch-blob';
 import PageLayout from '@components/PageLayout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ViewMaterialScreen({ route }) {
   const [listData, setListData] = useState([]);
@@ -43,8 +44,9 @@ export default function ViewMaterialScreen({ route }) {
     }
   }
 
-  const listFilesAndDirectories = (pageToken) => {
-    const folder = '1XezRy4XBVxqdjJK7m34' + '/' + route.params + '/'
+  const listFilesAndDirectories = async (pageToken) => {
+    const teacherId = await AsyncStorage.getItem('userToken');
+    const folder = teacherId + '/' + route.params + '/'
     const reference = storage().ref(folder);
     reference.list({ pageToken }).then((result) => {
       if (result.nextPageToken) {

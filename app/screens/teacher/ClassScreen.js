@@ -5,6 +5,7 @@ import PageLayout from '@components/PageLayout';
 import firestore from '@react-native-firebase/firestore';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '@res/colors';
 
 export default function ClassScreen({ navigation }) {
   const [teacherId, setTeacherId] = useState('1XezRy4XBVxqdjJK7m34');
@@ -27,7 +28,7 @@ export default function ClassScreen({ navigation }) {
     return (
       <View style={styles.classCard}>
         <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => navigation.navigate('ViewMaterial', item._data.grade)}>
-          <Icon name="google-classroom" size={80} color="#041a5e" style={{ marginTop: 30 }} />
+          <Icon name="google-classroom" size={80} color="colors.primary_blue" style={{ marginTop: 30 }} />
           <Text style={styles.classCardText}>Grade {item._data.grade}</Text>
         </TouchableOpacity>
       </View>

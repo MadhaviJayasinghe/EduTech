@@ -14,6 +14,7 @@
           "@config": "./app/config",
           "@images": "./app/res/images",
           "@components": "./app/components",
+          "@res": "./app/res",
           "@hooks": "./app/hooks"
         }
       }

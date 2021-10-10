@@ -8,6 +8,7 @@ import DocumentPicker from "react-native-document-picker";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Picker } from '@react-native-picker/picker';
 import firestore from '@react-native-firebase/firestore';
+import colors from '@res/colors';
 
 export default function UploadMaterialScreen({ navigation }) {
   const [filePath, setFilePath] = useState({});
@@ -76,7 +77,7 @@ export default function UploadMaterialScreen({ navigation }) {
         <View style={styles.card}>
           <TouchableOpacity style={styles.card}
             onPress={_chooseFile}>
-            <Icon name="note-text-outline" size={110} color="#041a5e" />
+            <Icon name="note-text-outline" size={110} color="colors.primary_blue" />
             <Text style={styles.cardTextSmall}>Click here to select</Text>
             <Text style={styles.cardTextLarge}>Study Materials</Text>
             <Text style={styles.cardTextSmall}> You have selected:{" "}

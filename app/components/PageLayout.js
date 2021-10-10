@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import styles from './style';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '@res/colors'
 
 export default class PageLayout extends React.Component {
   constructor(props) {

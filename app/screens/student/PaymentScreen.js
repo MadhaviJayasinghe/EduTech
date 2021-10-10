@@ -5,10 +5,14 @@ import storage from '@react-native-firebase/storage';
 import CustomButton from '@components/CustomButton';
 import PageLayout from '@components/PageLayout';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import colors from '@res/colors';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Picker } from '@react-native-picker/picker';
 import firestore from '@react-native-firebase/firestore';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import RNFS from 'react-native-fs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NetworkConsumer, NetworkProvider } from 'react-native-offline';
 
 export default function PaymentScreen({ navigation }) {
   const [imageName, setImageName] = useState('');
@@ -53,7 +57,7 @@ export default function PaymentScreen({ navigation }) {
     ImagePicker.openCamera({
       width: 300,
       height: 400,
-      cropping: true,
+      cropping: false,
     }).then(image => {
       console.log(image.path)
       var Image_Http_URL = image.path;
@@ -83,6 +87,26 @@ export default function PaymentScreen({ navigation }) {
     }).catch((e) => {
       console.log('uploading image error => ', e);
     });
+  }
+
+  uploadImageToCache = async (path) => {
+    const iName = path.split('/').pop();
+    console.log('Filename is ', iName)
+    const imagePath = `${RNFS.ExternalCachesDirectoryPath}/${iName}`;
+
+    RNFS.copyFile(path, imagePath)
+      .then((success) => {
+        console.log('IMG COPIED!');
+        console.log(success);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    const fileName = 'file://' + imagePath;
+    await AsyncStorage.setItem('paidTeacher', teacherId);
+    await AsyncStorage.setItem('paidGrade', grade);
+    await AsyncStorage.setItem('payslip', fileName);
   }
 
   const fetchTeachers = async () => {
@@ -161,7 +185,7 @@ export default function PaymentScreen({ navigation }) {
           {imageUrl == '' &&
             <TouchableOpacity style={styles.card}
               onPress={() => setShowAlert(true)}>
-              <Icon name="payment" size={120} color="#041a5e" />
+              <Icon name="payment" size={120} color="colors.primary_blue" />
               <Text style={styles.cardTextSmall}>Capture or select your</Text>
               <Text style={styles.cardTextLarge}>Payslip</Text>
             </TouchableOpacity>
@@ -183,18 +207,31 @@ export default function PaymentScreen({ navigation }) {
           showConfirmButton={true}
           cancelText="Camera"
           confirmText="Gallery"
-          confirmButtonColor="#041a5e"
-          cancelButtonColor="#041a5e"
+          confirmButtonColor="colors.primary_blue"
+          cancelButtonColor="colors.primary_blue"
           onCancelPressed={() => {
-            this.requestCameraPermission();
+            requestCameraPermission();
           }}
           onConfirmPressed={() => {
             this.selectImage();
           }}
         />
-        <CustomButton
-          name='SEND'
-          onPress={() => this.uploadImageToStorage(imageUrl)} />
+        <NetworkProvider shouldPing pingInterval={100}>
+          <NetworkConsumer>
+            {({ isConnected }) =>
+              isConnected ? (
+                <CustomButton
+                  name='SEND'
+                  onPress={() => uploadImageToStorage(imageUrl)} />
+              ) : (
+                <CustomButton
+                  name='SEND OFFLINE'
+                  onPress={() => uploadImageToCache(imageUrl)} />
+              )
+            }
+          </NetworkConsumer>
+        </NetworkProvider>
+
       </View>
     </SafeAreaView>
   )

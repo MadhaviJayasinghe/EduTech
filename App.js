@@ -7,7 +7,7 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide()
   })
-  
+
   return (
     <NavigationContainer>
       <AuthStackNav />
