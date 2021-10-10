@@ -41,8 +41,6 @@ function AuthStackNav() {
      }
      {userToken != null &&
         <>
-                  <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
-
           <Stack.Screen name="TeacherHome" component={TeacherHomeScreen} />
           <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />
           <Stack.Screen name="Messages" component={Messages} />
@@ -50,7 +48,7 @@ function AuthStackNav() {
           <Stack.Screen name="UploadMaterial" component={UploadMaterialScreen} />
           <Stack.Screen name="ViewMaterial" component={ViewMaterialScreen} />
           <Stack.Screen name="ClassRoom" component={ClassRoomScreen} />
-          {/* <Stack.Screen name="StudentHome" component={StudentHomeScreen} /> */}
+          <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
           <Stack.Screen name="Payment" component={PaymentScreen} />
           <Stack.Screen name="ClassList" component={ClassListScreen} />
           <Stack.Screen name="ClassMaterial" component={ClassMaterialScreen} />
