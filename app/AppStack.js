@@ -20,8 +20,8 @@ function AppStackNav() {
       <Stack.Screen name="StudyMaterial" component={StudyMaterialScreen} />
       <Stack.Screen name="UploadMaterial" component={UploadMaterialScreen} />
       <Stack.Screen name="ViewMaterial" component={ViewMaterialScreen} />
-          <Stack.Screen name="ClassRoom" component={ClassRoomScreen} />
-<Stack.Screen name="StudentHome" component={StudentHomeScreen} />
+      <Stack.Screen name="ClassRoom" component={ClassRoomScreen} />
+      <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
 
     </Stack.Navigator>
   )
