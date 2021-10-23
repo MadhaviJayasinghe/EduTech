@@ -24,7 +24,10 @@ export default function TeacherHomeScreen({ navigation }) {
           </View>
           <View style={styles.space} />
           <View style={styles.smallButton}>
-            <FontAwesome5Icon name="wallet" size={65} color={colors.white} style={{ alignSelf: 'center' }} />
+            <TouchableOpacity
+              onPress={() => { navigation.navigate('ViewPayments') }}>
+              <FontAwesome5Icon name="wallet" size={65} color={colors.white} style={{ alignSelf: 'center' }} />
+            </TouchableOpacity>
           </View>
           <View style={styles.space} />
         </View>
@@ -58,11 +61,11 @@ export default function TeacherHomeScreen({ navigation }) {
           </View>
           <View style={styles.space} />
           <View style={styles.smallButton1}>
-          <TouchableOpacity
+            <TouchableOpacity
               onPress={() => { navigation.navigate('Profile') }}>
               <MaterialIcon name="person" size={65} color={colors.white} style={{ alignSelf: 'center' }} />
-          </TouchableOpacity>
-             </View>
+            </TouchableOpacity>
+          </View>
           <View style={styles.space} />
         </View>
       </View>

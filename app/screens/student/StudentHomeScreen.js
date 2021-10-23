@@ -50,7 +50,7 @@ export default function StudentHomeScreen({ navigation }) {
         teacherId: paidTeacher,
         grade: paidGrade,
         studentId: userToken,
-        slip: path
+        slip: url
       }).then((res) => {
         console.log(res)
         console.log(response)

@@ -20,13 +20,29 @@ export default function ProfileScreen({ navigation }) {
   console.log(RNFS.CachesDirectoryPath);
   const [imageName, setImageName] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [teacher, setTeacher] = useState("teacher");
-  const [teachers, setTeachers] = useState([]);
-  const [grade, setGrade] = useState("grade");
-  const [grades, setGrades] = useState([]);
-  const [teacherId, setTeacherId] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-  const [offlineUrl, setOfflineUrl] = useState('');
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+
+    const teacherResponse = await firestore().collection('teachers').doc(userToken).get();
+    const studentResponse = await firestore().collection('students').doc(userToken).get();
+
+    if(teacherResponse._data != undefined) {
+      setName(teacherResponse._data.firstName + " " + teacherResponse._data.lastName)
+      setPhone(teacherResponse._data.phone)
+    }
+    else if(studentResponse._data != undefined) {
+      setName(studentResponse._data.firstName + " " + studentResponse._data.lastName)
+      setPhone(studentResponse._data.phone)
+    }
+  }
 
   getFileName = (path) => {
     if (Platform.OS === "ios") {
@@ -93,7 +109,7 @@ export default function ProfileScreen({ navigation }) {
     const imagePath = RNFS.CachesDirectoryPath + '/'
     const iName = path.split('/').pop();
     console.log('Filename is ', iName)
-    const newPath = `${RNFS.ExternalCachesDirectoryPath}/${iName}`; // You don't really need the `'file://` prefix
+    const newPath = `${RNFS.ExternalCachesDirectoryPath}/${iName}`; 
 
     RNFS.copyFile(path, newPath)
       .then((success) => {
@@ -128,6 +144,10 @@ export default function ProfileScreen({ navigation }) {
       });
   }
 
+  signOut = async () => {
+    await AsyncStorage.removeItem('userToken');
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <PageLayout title='Profile' />
@@ -142,8 +162,8 @@ export default function ProfileScreen({ navigation }) {
           showConfirmButton={true}
           cancelText="Camera"
           confirmText="Gallery"
-          confirmButtonColor="colors.primary_blue"
-          cancelButtonColor="colors.primary_blue"
+          confirmButtonColor={colors.primary_blue}
+          cancelButtonColor={colors.primary_blue}
           onCancelPressed={() => {
             requestCameraPermission();
           }}
@@ -154,7 +174,7 @@ export default function ProfileScreen({ navigation }) {
         {imageUrl == '' &&
           <TouchableOpacity style={styles.image}
             onPress={() => setShowAlert(true)}>
-            <Icon name="person-add-alt-1" size={80} color="colors.primary_blue" />
+            <Icon name="person-add-alt-1" size={80} color={colors.primary_blue}/>
           </TouchableOpacity>
         }
         {imageUrl != '' &&
@@ -168,16 +188,16 @@ export default function ProfileScreen({ navigation }) {
           <TextInput
             style={styles.textInput}
             autoFocus={false}
-            value='Stefeni Fernando'
+            value={name}
             editable={false} />
           <Text style={styles.label}>Contact Number</Text>
           <TextInput
             style={styles.textInput}
-            value='0773665789'
+            value={phone}
             autoFocus={false}
             editable={false} />
             <TouchableOpacity style={styles.logout}
-              onPress={() => setShowAlert(true)}>
+              onPress={() => signOut()}>
               <Icon name="logout" size={40} color="red" />
             <Text style={styles.logoutText}>Signout</Text>
             </TouchableOpacity>

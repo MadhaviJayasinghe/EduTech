@@ -10,7 +10,6 @@ import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpTeacherScreen({ navigation, route }) {
-  console.warn(route.params)
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
   const [contactNo, setContactNo] = useState('');

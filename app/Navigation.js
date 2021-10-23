@@ -26,7 +26,4 @@ export default function Navigation() {
             <AuthStackNav setUserToken={setUserToken} setRole={setRole} />
         )
     }
-
-
-
 }

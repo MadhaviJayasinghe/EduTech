@@ -14,7 +14,7 @@ export default function StudyMaterialScreen({ navigation }) {
         <View style={styles.materialOption}>
           <TouchableOpacity style={styles.materialOption}
             onPress={() => { navigation.navigate('UploadMaterial') }}>
-            <Icon name="file-upload-outline" size={120} color="colors.primary_blue" />
+            <Icon name="file-upload-outline" size={120} color={colors.primary_blue}/>
             <Text style={styles.materialOptionText}>Upload Materials</Text>
           </TouchableOpacity>
         </View>
@@ -22,7 +22,7 @@ export default function StudyMaterialScreen({ navigation }) {
         <View style={styles.materialOption}>
           <TouchableOpacity style={styles.materialOption}
             onPress={() => { navigation.navigate('Class') }}>
-            <Icon name="file-document-outline" size={120} color="colors.primary_blue" />
+            <Icon name="file-document-outline" size={120} color={colors.primary_blue}/>
             <Text style={styles.materialOptionText}>View Materials</Text>
           </TouchableOpacity>
         </View>

@@ -9,10 +9,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Picker } from '@react-native-picker/picker';
 import firestore from '@react-native-firebase/firestore';
 import colors from '@res/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UploadMaterialScreen({ navigation }) {
   const [filePath, setFilePath] = useState({});
-  const [teacherId, setTeacherId] = useState('1XezRy4XBVxqdjJK7m34');
+  const [teacherId, setTeacherId] = useState('');
   const [grade, setGrade] = useState("grade");
   const [grades, setGrades] = useState([]);
 
@@ -37,7 +38,6 @@ export default function UploadMaterialScreen({ navigation }) {
 
   uploadMaterials = (filePath) => {
     async function upload(fileDetails) {
-      console.warn(grade)
       await storage().ref(teacherId + '/' + grade + '/' + fileDetails.name).putFile(fileDetails.uri)
     }
     filePath.forEach(filePath => upload(filePath))
@@ -53,9 +53,11 @@ export default function UploadMaterialScreen({ navigation }) {
   }
 
   const fetchGrades = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    setTeacherId(userToken)
     const response = await firestore()
       .collection('classes')
-      .where("teacherId", "==", teacherId)
+      .where("teacherId", "==", userToken)
       .get();
     setGrades(response.docs)
   }
@@ -77,7 +79,7 @@ export default function UploadMaterialScreen({ navigation }) {
         <View style={styles.card}>
           <TouchableOpacity style={styles.card}
             onPress={_chooseFile}>
-            <Icon name="note-text-outline" size={110} color="colors.primary_blue" />
+            <Icon name="note-text-outline" size={110} color={colors.primary_blue} />
             <Text style={styles.cardTextSmall}>Click here to select</Text>
             <Text style={styles.cardTextLarge}>Study Materials</Text>
             <Text style={styles.cardTextSmall}> You have selected:{" "}

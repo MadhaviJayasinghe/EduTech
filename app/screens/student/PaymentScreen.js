@@ -111,11 +111,14 @@ export default function PaymentScreen({ navigation }) {
 
   const fetchTeachers = async () => {
     const response = firestore().collection('teachers');
+    console.log(response)
     const data = await response.get();
+    // console.log(data.docs)
     setTeachers(data.docs)
   }
 
   const fetchGrades = async (tId) => {
+    console.warn(tId)
     const response = await firestore()
       .collection('classes')
       .where("teacherId", "==", tId)
@@ -141,12 +144,13 @@ export default function PaymentScreen({ navigation }) {
 
   sendPayslip = async () => {
     const url = await storage().ref('payments/' + imageName).getDownloadURL()
+    const userToken = await AsyncStorage.getItem('userToken');
     const response = await firestore()
       .collection('payments')
       .add({
         teacherId: teacherId,
         grade: grade,
-        studentId: '123456',
+        studentId: userToken,
         slip: url
       }).then((res) => {
         console.warn(res)
@@ -185,7 +189,7 @@ export default function PaymentScreen({ navigation }) {
           {imageUrl == '' &&
             <TouchableOpacity style={styles.card}
               onPress={() => setShowAlert(true)}>
-              <Icon name="payment" size={120} color="colors.primary_blue" />
+              <Icon name="payment" size={120} color={colors.primary_blue}/>
               <Text style={styles.cardTextSmall}>Capture or select your</Text>
               <Text style={styles.cardTextLarge}>Payslip</Text>
             </TouchableOpacity>
@@ -207,8 +211,8 @@ export default function PaymentScreen({ navigation }) {
           showConfirmButton={true}
           cancelText="Camera"
           confirmText="Gallery"
-          confirmButtonColor="colors.primary_blue"
-          cancelButtonColor="colors.primary_blue"
+          confirmButtonColor={colors.primary_blue}
+          cancelButtonColor={colors.primary_blue}
           onCancelPressed={() => {
             requestCameraPermission();
           }}

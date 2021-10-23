@@ -20,5 +20,6 @@ export { default as ViewStudentsScreen} from './teacher/ViewStudentsScreen'
 export { default as JoinClassRoomScreen} from './student/JoinClassRoomScreen'
 export { default as NotificationScreen} from './student/NotificationScreen'
 export { default as ProfileScreen} from './profile/ProfileScreen'
+export { default as ViewPaymentsScreen} from './teacher/ViewPaymentsScreen'
 
 export { default as AppStack} from '../AppStack'

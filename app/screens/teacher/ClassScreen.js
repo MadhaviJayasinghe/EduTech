@@ -6,9 +6,10 @@ import firestore from '@react-native-firebase/firestore';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '@res/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ClassScreen({ navigation }) {
-  const [teacherId, setTeacherId] = useState('1XezRy4XBVxqdjJK7m34');
+  const [teacherId, setTeacherId] = useState('');
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
@@ -16,9 +17,11 @@ export default function ClassScreen({ navigation }) {
   }, []);
 
   const listClasses = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    setTeacherId(userToken)
     const response = await firestore()
       .collection('classes')
-      .where("teacherId", "==", teacherId)
+      .where("teacherId", "==", userToken)
       .get();
     console.log(response.docs)
     setClasses(response.docs)
@@ -28,7 +31,7 @@ export default function ClassScreen({ navigation }) {
     return (
       <View style={styles.classCard}>
         <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => navigation.navigate('ViewMaterial', item._data.grade)}>
-          <Icon name="google-classroom" size={80} color="colors.primary_blue" style={{ marginTop: 30 }} />
+          <Icon name="google-classroom" size={80} color={colors.primary_blue}style={{ marginTop: 30 }} />
           <Text style={styles.classCardText}>Grade {item._data.grade}</Text>
         </TouchableOpacity>
       </View>

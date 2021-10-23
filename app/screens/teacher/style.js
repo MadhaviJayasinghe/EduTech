@@ -167,4 +167,25 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         elevation: 10
     },
+    paymentCard: {
+        borderColor: colors.primary_blue,
+        borderWidth: 1.5,
+        width: config.deviceWidth * 0.9,
+        height: config.deviceHeight*0.4,
+        borderRadius: 5,
+        marginBottom: config.deviceWidth * 0.03,
+        justifyContent: 'center',
+    },
+    paymentImg: {
+        borderColor: colors.primary_blue,
+        borderWidth: 1.5,
+        width: config.deviceWidth * 0.85,
+        height: config.deviceHeight*0.3,
+        borderRadius: 5,
+        marginBottom: config.deviceWidth * 0.03,
+        alignSelf: 'center'
+    },
+    paymentText: {
+        marginLeft: config.deviceWidth*0.03
+    },
 });

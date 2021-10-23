@@ -6,7 +6,8 @@ import {
   SignUpStudentScreen, TeacherHomeScreen, ChatRoomScreen, Messages, StudyMaterialScreen,
   UploadMaterialScreen, ViewMaterialScreen, ClassRoomScreen, StudentHomeScreen,
   PaymentScreen, ClassListScreen, ClassMaterialScreen, ClassScreen, StudentHandleScreen, 
-  ViewStudentsScreen, JoinClassRoomScreen, NotificationScreen, ProfileScreen
+  ViewStudentsScreen, JoinClassRoomScreen, NotificationScreen, ProfileScreen,
+  ViewPaymentsScreen
 } from './screens'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -41,6 +42,8 @@ function AuthStackNav() {
      }
      {userToken != null &&
         <>
+                  <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
+
           <Stack.Screen name="TeacherHome" component={TeacherHomeScreen} />
           <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />
           <Stack.Screen name="Messages" component={Messages} />
@@ -48,7 +51,7 @@ function AuthStackNav() {
           <Stack.Screen name="UploadMaterial" component={UploadMaterialScreen} />
           <Stack.Screen name="ViewMaterial" component={ViewMaterialScreen} />
           <Stack.Screen name="ClassRoom" component={ClassRoomScreen} />
-          <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
+          {/* <Stack.Screen name="StudentHome" component={StudentHomeScreen} /> */}
           <Stack.Screen name="Payment" component={PaymentScreen} />
           <Stack.Screen name="ClassList" component={ClassListScreen} />
           <Stack.Screen name="ClassMaterial" component={ClassMaterialScreen} />
@@ -58,6 +61,7 @@ function AuthStackNav() {
           <Stack.Screen name="JoinClassRoom" component={JoinClassRoomScreen} />
           <Stack.Screen name="Notifications" component={NotificationScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="ViewPayments" component={ViewPaymentsScreen} />
            </>
       
      }
