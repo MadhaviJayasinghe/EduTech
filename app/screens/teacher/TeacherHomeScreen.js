@@ -1,17 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import colors from '@res/colors'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TeacherHomeScreen({ navigation }) {
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    const name = await AsyncStorage.getItem('firstName');
+    setName(name)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 26, color: colors.white, marginLeft: 5, textAlign: 'right' }}>Hello,</Text>
-      <Text style={{ fontWeight: '500', fontSize: 50, color: colors.white, marginLeft: 5, textAlign: 'right', marginTop: -20 }}>Mathew</Text>
-
+      <Text style={{ fontWeight: '500', fontSize: 50, color: colors.white, marginLeft: 5, textAlign: 'right', marginTop: -20 }}>{name}</Text>
       <View style={styles.middleContainer}>
         <View style={styles.row}>
           <View style={styles.space} />

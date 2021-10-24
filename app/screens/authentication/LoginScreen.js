@@ -31,6 +31,7 @@ export default function LoginScreen({ navigation, route }) {
                     const user = firestoreDocument.data()
                     route.params.setUserToken(uid) 
                     saveUID(uid)
+                    fetchData(uid)
                     
                 })
                 .catch(error => {
@@ -44,6 +45,26 @@ export default function LoginScreen({ navigation, route }) {
 
 async function saveUID (uid){
   await AsyncStorage.setItem('userToken', uid);
+}
+
+const fetchData = async (uid) => {
+  const teacherResponse = await firestore().collection('teachers').doc(uid).get();
+  const studentResponse = await firestore().collection('students').doc(uid).get();
+
+  if(teacherResponse._data != undefined) {
+    await AsyncStorage.setItem('fullName', teacherResponse._data.firstName + " " + teacherResponse._data.lastName);
+    await AsyncStorage.setItem('firstName', teacherResponse._data.firstName);
+    await AsyncStorage.setItem('phone', teacherResponse._data.phone);
+
+    route.params.setName(teacherResponse._data.firstName) 
+  }
+  else if(studentResponse._data != undefined) {
+    await AsyncStorage.setItem('fullName', studentResponse._data.firstName + " " + studentResponse._data.lastName);
+    await AsyncStorage.setItem('firstName', studentResponse._data.firstName);
+    await AsyncStorage.setItem('phone', studentResponse._data.phone);
+
+    route.params.setName(studentResponse._data.firstName) 
+  }
 }
 
   return (

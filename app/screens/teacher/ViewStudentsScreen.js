@@ -12,21 +12,13 @@ export default function ViewStudentsScreen({ route }) {
   const [userToken, setUserToken] = useState(undefined)
   const [studentList, setStudentList] = useState([])
 
-  // useEffect(() => {
-  //   () => console.log('l')
-  //   // bootstrapAsync(),
-  //   //   listStudents("");
-  // }, []);
-
   useFocusEffect(
     React.useCallback(() => {
-      // bootstrapAsync(),
       listStudents("");
     }, [])
   );
 
   const bootstrapAsync = async () => {
-    console.log('>>>>>>>>>>>>' + userToken)
     setUserToken(userToken)
   };
 
@@ -72,9 +64,10 @@ export default function ViewStudentsScreen({ route }) {
     for (let userObject of response.docs) {
       const student = await firestore()
       .collection('students')
-      .doc(userObject._data.studentId)
+      .where("id", "==" ,userObject._data.studentId)
       .get();
-      const studentName = student._data.firstName + " " + student._data.lastName
+      
+      const studentName = student.docs[0]._data.firstName + " " + student.docs[0]._data.lastName
       setStudentList(c => c.concat(studentName));
     }    
   };

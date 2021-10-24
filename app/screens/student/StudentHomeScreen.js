@@ -8,15 +8,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import colors from '@res/colors';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function StudentHomeScreen({ navigation }) {
+export default function StudentHomeScreen({ navigation, route }) {
   const [userToken, setUserToken] = useState('');
   const [path, setPath] = useState('');
   const [paidTeacher, setPaidTeacher] = useState('');
   const [paidGrade, setPaidGrade] = useState('');
+  const [name, setName] = useState('');
+
   useEffect(() => {
     fetchPayslip("");
+    fetchData()
   }, []);
+
+  const fetchData = async () => {
+    const name = await AsyncStorage.getItem('firstName');
+    setName(name)
+  }
 
   const fetchPayslip = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -62,67 +71,67 @@ export default function StudentHomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 26, color: colors.white, marginLeft: 5, textAlign: 'right' }}>Hello,</Text>
-      <Text style={{ fontWeight: '500', fontSize: 50, color: colors.white, marginLeft: 5, textAlign: 'right', marginTop: -20 }}>Stepheni</Text>
+      <Text style={styles.welcome}>Hello,</Text>
+      <Text style={styles.greeting}>{name}</Text>
       <View style={styles.middleContainer}>
         <View style={styles.row}>
           <View style={styles.space} />
-          <View style={styles.largeButton}>
+          <View style={[{backgroundColor: colors.metro_indigo}, styles.largeButton]}>
             <TouchableOpacity
               onPress={() => { navigation.navigate('ClassList') }}>
-              <Icon name="book-open-page-variant" size={85} color={colors.white} style={{ alignSelf: 'center', marginTop: 15, marginBottom: 15 }} />
-              <Text style={{ fontSize: 16, color: colors.white, marginLeft: 5 }}>Study Materials</Text>
+              <Icon name="book-open-page-variant" size={85} color={colors.white} style={styles.largeIcon} />
+              <Text style={styles.buttonText}>Study Materials</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.space} />
-          <View style={styles.smallButton}>
+          <View style={[{backgroundColor: colors.metro_lime}, styles.smallButton]}>
             <TouchableOpacity
               onPress={() => { navigation.navigate('Payment') }}>
-              <FontAwesome5Icon name="wallet" size={65} color={colors.white} style={{ alignSelf: 'center' }} />
+              <FontAwesome5Icon name="wallet" size={65} color={colors.white} style={styles.smallIcon} />
             </TouchableOpacity>
           </View>
           <View style={styles.space} />
         </View>
         <View style={styles.row}>
           <View style={styles.space} />
-          <View style={styles.mediumButton}>
+          <View style={[styles.mediumButton, {backgroundColor: colors.metro_amber}]}>
             <TouchableOpacity
               onPress={() => { navigation.navigate('JoinClassRoom') }}>
-              <FontAwesome5Icon name="chalkboard-teacher" size={65} color={colors.white} style={{ alignSelf: 'center', marginTop: 25, marginBottom: 25 }} />
-              <Text style={{ fontSize: 16, color: colors.white, marginLeft: 5 }}>Join Classroom</Text>
+              <FontAwesome5Icon name="chalkboard-teacher" size={65} color={colors.white} style={styles.mediumIcon} />
+              <Text style={styles.buttonText}>Join Classroom</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.space} />
-          <View style={styles.mediumButton1}>
+          <View style={[styles.mediumButton, {backgroundColor: colors.metro_cyan}]}>
           <TouchableOpacity
               onPress={() => { navigation.navigate('Notifications') }}>
-             <MaterialIcon name="notifications" size={65} color={colors.white} style={{ alignSelf: 'center', marginTop: 25, marginBottom: 25 }} />
-            <Text style={{ fontSize: 16, color: colors.white, marginLeft: 5 }}>Notifications</Text>
+             <MaterialIcon name="notifications" size={65} color={colors.white} style={styles.mediumIcon} />
+            <Text style={styles.buttonText}>Notifications</Text>
           </TouchableOpacity>
              </View>
           <View style={styles.space} />
         </View>
         <View style={styles.row}>
           <View style={styles.space} />
-          <View style={styles.largeButton1}>
+          <View style={[{backgroundColor: colors.metro_emerald}, styles.largeButton]}>
             <TouchableOpacity
               onPress={() => { navigation.navigate('ChatRoom') }}>
-              <Icon name="chat" size={85} color={colors.white} style={{ alignSelf: 'center', marginTop: 25, marginBottom: 5 }} />
-              <Text style={{ fontSize: 16, color: colors.white, marginLeft: 5 }}>Chat</Text>
+              <Icon name="chat" size={85} color={colors.white} style={styles.icon} />
+              <Text style={styles.buttonText}>Chat</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.space} />
-          <View style={styles.smallButton1}>
+          <View style={[{backgroundColor: colors.metro_orange}, styles.smallButton]}>
           <TouchableOpacity
               onPress={() => { navigation.navigate('Profile') }}>
-              <MaterialIcon name="person" size={65} color={colors.white} style={{ alignSelf: 'center' }} />
+              <MaterialIcon name="person" size={65} color={colors.white} style={styles.smallIcon} />
           </TouchableOpacity>
              </View>
           <View style={styles.space} />
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <Text style={{ fontSize: 26, color: colors.white, marginLeft: 15, textAlign: 'left', marginTop: 50 }}>EduTech</Text>
+        <Text style={styles.bottomText}>EduTech</Text>
       </View>
     </View>
   )

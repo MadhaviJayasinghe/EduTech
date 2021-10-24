@@ -54,19 +54,22 @@ export default function SignUpTeacherScreen({ navigation, route }) {
         phone: contactNo,
         subject: subject
       }).then((res) => {
-        xx()
-        route.params.setUserToken(route.params.id) 
-        route.params.setUserRole(route.params.role) 
+        setData(fName, lName, contactNo)
+        route.params.setUserToken(route.params.id)
+        route.params.setUserRole(route.params.role)
       })
       .catch((err) => {
         console.error("Error found: ", err);
       });
   }
 
-  async function xx (){
+  async function setData(fName, lName, contactNo) {
     var role = 'teacher'
     await AsyncStorage.setItem('userToken', route.params.id);
     await AsyncStorage.setItem('userRole', role);
+    await AsyncStorage.setItem('fullName', fName + " " + lName);
+    await AsyncStorage.setItem('firstName', fName);
+    await AsyncStorage.setItem('phone', contactNo);
   }
 
   return (

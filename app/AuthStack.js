@@ -16,6 +16,7 @@ const Stack = createStackNavigator();
 function AuthStackNav() {
   const [userToken, setUserToken] = useState(undefined)
   const [userRole, setUserRole] = useState(undefined)
+  const [name, setName] = useState('');
 
   const bootstrapAsync = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -23,6 +24,9 @@ function AuthStackNav() {
 
     const userRole = await AsyncStorage.getItem("userRole");
     setUserRole(userRole)
+
+    const name = await AsyncStorage.getItem('firstName');
+    setName(name)
   };
 
   useEffect(() => bootstrapAsync(), [], console.log(userToken + userRole))
@@ -32,17 +36,17 @@ function AuthStackNav() {
       screenOptions={{ headerShown: false }} >
       {userToken == null &&
         <>
-          <Stack.Screen name="Login" component={LoginScreen} initialParams={{ setUserToken ,setUserRole }} />
+          <Stack.Screen name="Login" component={LoginScreen} initialParams={{ setUserToken ,setUserRole, setName }} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignUpCredential" component={SignUpCredentialScreen} />
-          <Stack.Screen name="SignUpTeacher" component={SignUpTeacherScreen} initialParams={{ setUserToken, setUserRole }}/>
-          <Stack.Screen name="SignUpStudent" component={SignUpStudentScreen} />
+          <Stack.Screen name="SignUpTeacher" component={SignUpTeacherScreen} initialParams={{ setUserToken, setName }}/>
+          <Stack.Screen name="SignUpStudent" component={SignUpStudentScreen } initialParams={{ setUserToken, setName }} />
         </>
       
      }
      {userToken != null &&
         <>
-                  <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
+          {/* <Stack.Screen name="StudentHome" component={StudentHomeScreen} /> */}
 
           <Stack.Screen name="TeacherHome" component={TeacherHomeScreen} />
           <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />
@@ -51,7 +55,7 @@ function AuthStackNav() {
           <Stack.Screen name="UploadMaterial" component={UploadMaterialScreen} />
           <Stack.Screen name="ViewMaterial" component={ViewMaterialScreen} />
           <Stack.Screen name="ClassRoom" component={ClassRoomScreen} />
-          {/* <Stack.Screen name="StudentHome" component={StudentHomeScreen} /> */}
+          <Stack.Screen name="StudentHome" component={StudentHomeScreen} />
           <Stack.Screen name="Payment" component={PaymentScreen} />
           <Stack.Screen name="ClassList" component={ClassListScreen} />
           <Stack.Screen name="ClassMaterial" component={ClassMaterialScreen} />

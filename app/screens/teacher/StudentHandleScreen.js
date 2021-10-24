@@ -60,12 +60,12 @@ export default function StudentHandleScreen({ navigation }) {
 
     console.log(teacherResponse)
     const newResponse = await firestore()
-      .collection('registered_claases')
+      .collection('registered_classes')
       .add({
         grade: studentGrade,
         studentId: requestId,
-        subject: userToken,
-        teacherId: teacherResponse._data.subject
+        subject: teacherResponse._data.subject,
+        teacherId: userToken
       }).then((res) => {
         navigation.navigate('TeacherHome')
       })

@@ -15,7 +15,8 @@
           "@images": "./app/res/images",
           "@components": "./app/components",
           "@res": "./app/res",
-          "@hooks": "./app/hooks"
+          "@hooks": "./app/hooks",
+          "@env": "./env"
         }
       }
     ]

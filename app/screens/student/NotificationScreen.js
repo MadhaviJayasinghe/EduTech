@@ -32,7 +32,7 @@ export default function NotificationScreen() {
       <View style={styles.requestCard}>
         <Text>Student                : {item._data.studentName}</Text>
         <Text>Grade                   : {item._data.grade}</Text>
-        <Text>Request Status : {item._data.status}</Text>
+        <Text>Request Status  : {item._data.status}</Text>
       </View>
     );
   };

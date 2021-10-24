@@ -45,7 +45,6 @@ export default function UploadMaterialScreen({ navigation }) {
 
   ListAllGrades = () => {
     return (grades.map((x, i) => {
-      console.log(grades)
       var grade = 'Grade ' + x._data.grade
       return (<Picker.Item label={grade} key={i} value={x._data.grade} />)
     }
@@ -54,11 +53,13 @@ export default function UploadMaterialScreen({ navigation }) {
 
   const fetchGrades = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
+    console.log(userToken)
     setTeacherId(userToken)
     const response = await firestore()
       .collection('classes')
       .where("teacherId", "==", userToken)
       .get();
+      // console.log(response.docs)
     setGrades(response.docs)
   }
 

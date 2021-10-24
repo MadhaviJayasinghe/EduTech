@@ -20,7 +20,7 @@ export default function JoinClassRoomScreen({ navigation, route }) {
   useEffect(() => { fetchSubjects() }, [])
 
   const fetchTeachers = async (sId) => {
-    
+    console.warn(sId)
     const response = await firestore()
       .collection('teachers')
       .where("subject", "==", sId)
@@ -30,7 +30,7 @@ export default function JoinClassRoomScreen({ navigation, route }) {
 
   ListAllTeachers = () => {
     return (teachers.map((x, i) => {
-      return (<Picker.Item label={x._data.firstName} key={i} value={x.id} />)
+      return (<Picker.Item label={x._data.firstName + " " + x._data.lastName} key={i} value={x.id} />)
     }
     ))
   }
@@ -44,7 +44,7 @@ export default function JoinClassRoomScreen({ navigation, route }) {
 
   ListAllSubjects = () => {
     return (subjects.map((x, i) => {
-      return (<Picker.Item label={x._data.subjectName} key={i} value={x.id} />)
+      return (<Picker.Item label={x._data.subjectName} key={i} value={x._data.subjectName} />)
     }
     ))
   }

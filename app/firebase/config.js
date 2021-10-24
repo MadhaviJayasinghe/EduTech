@@ -1,14 +1,15 @@
 import firebase from 'firebase/app';
 import "firebase/firestore";
+import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID} from "@env";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyARfDtS9oHq2DzOM4bWSdNt7vJQ-xmHel0',
-  authDomain: 'edutechapp-afe0f.firebaseapp.com',
-  databaseURL: 'https://edutechapp-afe0f.firebaseio.com',
-  projectId: 'edutechapp-afe0f',
-  storageBucket: 'edutechapp-afe0f.appspot.com',
-  messagingSenderId: '621231790608',
-  appId: '1:621231790608:android:7fb83101cb9e823abec895',
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
 };
 
 if (!firebase.apps.length) {

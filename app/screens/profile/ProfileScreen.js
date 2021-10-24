@@ -23,6 +23,7 @@ export default function ProfileScreen({ navigation }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [showAlert, setShowAlert] = useState(false);
+  const [userToken, setUserToken] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -30,18 +31,13 @@ export default function ProfileScreen({ navigation }) {
 
   const fetchData = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
+    setUserToken(userToken)
 
-    const teacherResponse = await firestore().collection('teachers').doc(userToken).get();
-    const studentResponse = await firestore().collection('students').doc(userToken).get();
+    const name = await AsyncStorage.getItem('fullName');
+    setName(name)
 
-    if(teacherResponse._data != undefined) {
-      setName(teacherResponse._data.firstName + " " + teacherResponse._data.lastName)
-      setPhone(teacherResponse._data.phone)
-    }
-    else if(studentResponse._data != undefined) {
-      setName(studentResponse._data.firstName + " " + studentResponse._data.lastName)
-      setPhone(studentResponse._data.phone)
-    }
+    const phone = await AsyncStorage.getItem('phone');
+    setPhone(phone)
   }
 
   getFileName = (path) => {
@@ -133,7 +129,7 @@ export default function ProfileScreen({ navigation }) {
       .add({
         teacherId: teacherId,
         grade: grade,
-        studentId: '123456',
+        studentId: userToken,
         slip: url
       }).then((res) => {
         console.warn(res)
